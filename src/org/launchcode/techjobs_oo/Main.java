@@ -15,7 +15,7 @@ public class Main {
         jobs.add(job3);
 
         for (Job job : jobs){
-            System.out.println(job.getId());
+            System.out.println(job.toString());
         }
     }
 

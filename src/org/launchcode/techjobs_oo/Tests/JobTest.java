@@ -12,11 +12,8 @@ public class JobTest {
     Job test_job2; // two empty constructors
     Job test_job3;
     Job test_job4; // two equal objects (except for ID)
+    Job test_job5;
 
-    Employer employer;
-    Location location;
-    PositionType positionType;
-    CoreCompetency coreCompetency;
 
     @Before
     public void createJobObject(){
@@ -24,13 +21,13 @@ public class JobTest {
         test_job2 = new Job();
         test_job3 = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
         test_job4 = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
-
+        test_job5 = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency(""));
     }
 
     @Test
     public void testSettingJobId(){
         assertTrue((test_job1.getId() == 1) && (test_job2.getId() == 2));
-        // didn't work to do assertTrue (test_job.getId() == (test_job.getId()+1))... why??
+        // didn't work to do assertTrue (test_job1.getId() == (test_job2.getId()+1))... why??
     }
 
     @Test
@@ -51,6 +48,42 @@ public class JobTest {
     @Test
     public void testJobsForEquality(){
         assertFalse(test_job3.equals(test_job4));
+    }
+
+    @Test
+    public void testBlankLines(){
+        String testString = test_job4.toString();
+        assertTrue(testString.startsWith("\n") && testString.endsWith("\n"));
+    }
+
+    @Test
+    public void testLabelsFieldsLines(){
+        String testString = test_job4.toString();
+        assertTrue(testString.contains("\n" +
+                "ID: 4\n" +
+                "Name: Product tester\n" +
+                "Employer: ACME\n" +
+                "Location: Desert\n" +
+                "Position Type: Quality control\n" +
+                "Core Competency: Persistence\n")
+        );
+    }
+
+    @Test
+    public void testIfFieldIsEmpty(){
+        String testString = test_job5.toString();
+        assertTrue(testString.contains("\n" +
+                "ID: 5\n" +
+                "Name: Product tester\n" +
+                "Employer: ACME\n" +
+                "Location: Desert\n" +
+                "Position Type: Quality control\n" +
+                "Core Competency: Data not available\n")); //
+    }
+
+    @Test
+    public void testIfAllFieldsEmpty(){
+        //assertTrue(test_job1.toString().contains("OOPS! This job does not seem to exist."));
     }
 
 }

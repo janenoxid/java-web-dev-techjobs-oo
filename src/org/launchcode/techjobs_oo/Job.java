@@ -37,6 +37,24 @@ public class Job {
     }
 
     @Override
+    public String toString() {
+        return "\n" +
+                "ID: " + id + "\n" +
+                "Name: " + checkContents(name) + "\n" +
+                "Employer: " + checkContents(employer.getValue()) + "\n" +
+                "Location: " + checkContents(location.getValue()) + "\n" +
+                "Position Type: " + checkContents(positionType.getValue()) + "\n" +
+                "Core Competency: " + checkContents(coreCompetency.getValue()) +
+                "\n";
+    }
+
+    public String checkContents(String val) {
+        if (val != ""){
+        return val;
+        }else return "Data not available";
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(id);
     }
